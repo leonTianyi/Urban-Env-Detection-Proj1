@@ -1,7 +1,7 @@
 # Urban-Env-Detection-Proj1
 
 The following model investigatio is done under time constraint due to issues with AWS.
-Somehow I spent the 20 dollar limit after training my first model so hyperparameter tuning is shortened/skipped.
+Somehow I spent the 20 dollar limit after training and deploying my first model （EffDet) so hyperparameter tuning is skipped. Howevere, these will still be dicussed a high level basis.
 
 
 ## Issues
@@ -53,9 +53,6 @@ This project only wants us to compare the
 ## EfficientDet D1
 ### Hyperparameter Settings
 
-- Hyperparameters:
-    - epochs : 1000
-    - `pipeline.config`: default
 ### Test Result
 
 ```
@@ -72,16 +69,11 @@ This project only wants us to compare the
  Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.426
  Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.472
 ```
- ### Discussion
  
  
 ## SSD MobileNet V2 FPNLite 640x640
  ### Hyperparameter Settings
 
-- Hyperparameters:
-    - epochs : 1000
-    - `pipeline.config`:
-        - `batch_size = 8`
 ### Test Result
 ```
  Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.077
@@ -98,15 +90,68 @@ This project only wants us to compare the
  Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.423
 ```
  
- ### Discussion
+ ## Discussion : EfficientDet vs. SSD MobileNet
+ Note: Faster R-CNN ResNet50 V1 640x640 is still undeer training and it's taking way too much time to train (~20+ min per 100 steps). I am also currently using my own AWS resources to train the model. Therefore, the model might be discarded for comparison. The analysis will be done with the above two models for now.
  
+### EfficientDet D1:
+
+Average Precision (AP) ranges from 0.027 to 0.380 across different IoU thresholds and object sizes.
+Average Recall (AR) ranges from 0.022 to 0.472 across different IoU thresholds and object sizes.
+
+### SSD MobileNet V2 FPNLite:
+
+Average Precision (AP) ranges from 0.028 to 0.385 across different IoU thresholds and object sizes.
+Average Recall (AR) ranges from 0.022 to 0.423 across different IoU thresholds and object sizes.
+Comparing the performance of the two models, both EfficientDet D1 and SSD MobileNet V2 FPNLite show similar trends in terms of AP and AR across different evaluation metrics. However, the magnitudes of the performance metrics differ slightly.
+
+### Analysis
+In terms of average precision, both models achieve similar AP values, with EfficientDet D1 having slightly higher AP scores for most object sizes. Similarly, in terms of average recall, EfficientDet D1 tends to have slightly higher AR values across different IoU thresholds and object sizes.
+
+Considering these results, EfficientDet D1 appears to have a **slightly better** performance in terms of accuracy compared to SSD MobileNet V2 FPNLite. However, the differences between the models are not substantial, and other factors such as model speed and complexity should also be taken into account if we were to consider production level product.
+
+## Improvement
+### Learning Rate 
+- The learning rate controls the step size in the optimization process. 
+- One can try different learning rates to find the optimal value for the dataset.
+- In addition, leanring rate schedulers can be used to adjust the learning rate over time. 
+- For example, exponential decay **may** help improve convergence and performance by decreasing the learning rate as training progresses
+
+### Batch Size
+- Determines the number of samples processed in each training iteration.
+-  A larger batch size can lead to faster convergence, but it also requires more memory. 
+-  Smaller batch sizes can provide better generalization, but training might take longer (which is the case why my Faster R-CNN is still training right now...)
+-  Experiment with different batch sizes to find the optimal value that balances training efficiency and accuracy can be done given enough time and resource.
+
+### Number of Epochs
+- Increasing the number of epochs allows the model to see more examples, potentially improving its ability to generalize. 
+- However, too many epochs can lead to overfitting. 
+- If I had more time/resource and Tensorboard didn't fail on me :( , I could monitor the model's performance on the validation set to determine the optimal number of epochs.
+
+### Data Augmentation 
+- Can increase the diversity of the training data, helping the model generalize better. 
+- For example: random cropping, rotation, scaling, flipping, and color jittering. 
+- Can improve the model's robustness.
+
+### Model Architecture 
+- TensorFlow's model zoo provides a variety of pre-trained models with different architectures and complexities.
+- Can experiment with the models and find the ones that best suit this problem.
+
+### Regularization 
+- Weight decay or dropout can help prevent overfitting.
+- Can help combat overfitting due to, for example, high model complexity and high number of epochs
+
+
+### Others
+- I've used ADAM optimization in the past and found it to be performing very well.
+- Could be something to test in the future.
+
+ 
+
 
 ## Faster R-CNN ResNet50 V1 640x640
  ### Hyperparameter Settings
 
-- Hyperparameters:
-    - epochs : 1000 (cut to 800)
-    - `pipeline.config`: default
+
 ### Test Result
 
  
