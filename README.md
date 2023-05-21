@@ -23,27 +23,27 @@ The models being experimented are the following:
 
 ## Hypothesis
 - Before training, some basic research have been done to get an overview of the three models.
-- EfficientDet
+### EfficientDet
 
-        - Its architecture is based on the EfficientNet backbone and uses a combination of feature pyramid networks and bi-directional feature pyramid networks (BiFPN) to capture multi-scale features.
-        - Generally "high accuracy while maintaining efficiency"        
-- SSD MobileNet V1 FPN
+- Its architecture is based on the EfficientNet backbone and uses a combination of feature pyramid networks and bi-directional feature pyramid networks (BiFPN) to capture multi-scale features.
+- Generally "high accuracy while maintaining efficiency"        
+### SSD MobileNet V1 FPN
 
-        - Single Shot MultiBox Detector
-        - Known for its real-time inference capabilities
-        - Its architecture uses a lightweight network designed for mobile and embedded devices, providing a good trade-off between speed and accuracy.
-        - FPN (Feature Pyramid Network) is incorporated to capture multi-scale features, aiding in detecting objects at different scales.
-        - Generally "fast but has relatively lower accuracies compared to other popular models"
-- Faster R-CNN ResNet50
+- Single Shot MultiBox Detector
+- Known for its real-time inference capabilities
+- Its architecture uses a lightweight network designed for mobile and embedded devices, providing a good trade-off between speed and accuracy.
+- FPN (Feature Pyramid Network) is incorporated to capture multi-scale features, aiding in detecting objects at different scales.
+- Generally "fast but has relatively lower accuracies compared to other popular models"
+### Faster R-CNN ResNet50
 
-        -  Two stages: 
-        
-            - a region proposal network (RPN) that generates potential object proposals
-            - a classification network that classifies and refines these proposals.
-        - Uses ResNet50 as backbone, this architecture has50-layers and uses a bottleneck design for the building block
-        - Generally "more accurate but slow"
-        
+-  Two stages: 
 
+    - a region proposal network (RPN) that generates potential object proposals
+    - a classification network that classifies and refines these proposals.
+- Uses ResNet50 as backbone, this architecture has50-layers and uses a bottleneck design for the building block
+- Generally "more accurate but slower than single shot model"
+
+### Discussion
 Without running any tests and analyzing the report, I cannot say much regarding the accuracy of the models.
 However, in terms of speed, Faster R-CNN ResNet50 seems to be slower than the other two due to its two stage nature.
 
