@@ -20,7 +20,9 @@ The models being experimented are the following:
 - Faster R-CNN ResNet50 V1 640x640
 - Due to resource and time constraints, all the `pipeline.config` file parameters are kept at defaul. 
 - However, all three models are ran with a `batch_size = 8` and `num_epochs = 1000`
-
+## Videos
+- The video for Efficient Det is the one trained with 3000 epochs instead of 1000 as mentioned above. 
+- This was trained using the provided 20 dollar budget that I somehow used up really fast ...
 ## Hypothesis
 - Before training, some basic research have been done to get an overview of the three models.
 ### EfficientDet
